@@ -154,6 +154,10 @@ function handleRequest(chunk) {
     } */
     address = Address.read(chunk, 3);
     offset = 3 + Address.sizeOf(chunk, 3) + 2;
+
+    //FIX CURL offset
+    offset = offset >= chunk.length-1 ? offset -1 : offset;
+
     port = chunk.readUInt16BE(offset);
 
     log('Request: type: %d -- to: %s:%s', chunk[1], address, port);
